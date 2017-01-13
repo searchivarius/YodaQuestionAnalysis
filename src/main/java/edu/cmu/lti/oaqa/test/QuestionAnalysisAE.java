@@ -74,6 +74,7 @@ public class QuestionAnalysisAE {
 		builder.add(AnalysisEngineFactory.createEngineDescription(ClueByLAT.class));
 		builder.add(AnalysisEngineFactory.createEngineDescription(ClueBySubject.class));
 		/* Convert some syntactic clues to concept clues */
+		// This wouldn't work out of the box
 		//builder.add(AnalysisEngineFactory.createEngineDescription(CluesToConcepts.class));
 		/* Merge any duplicate clues */
 		builder.add(AnalysisEngineFactory.createEngineDescription(CluesMergeByText.class));
