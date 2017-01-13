@@ -4,12 +4,15 @@ import java.io.*;
 
 import org.apache.uima.UimaContext;
 import org.apache.uima.cas.CAS;
+import org.apache.uima.cas.CASException;
 import org.apache.uima.collection.CollectionException;
 import org.apache.uima.fit.component.CasCollectionReader_ImplBase;
 import org.apache.uima.fit.descriptor.ConfigurationParameter;
 import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.util.Progress;
 import org.apache.uima.util.ProgressImpl;
+
+import cz.brmlab.yodaqa.model.Question.QuestionInfo;
 
 public class TextCollectionReader extends CasCollectionReader_ImplBase {
 
@@ -55,6 +58,13 @@ public class TextCollectionReader extends CasCollectionReader_ImplBase {
       readNextLine();
     aCAS.setDocumentLanguage("en");
     aCAS.setDocumentText(mCurrLine);
+    try {
+      QuestionInfo q = new QuestionInfo(aCAS.getJCas());
+      q.addToIndexes();
+    } catch (CASException e) {
+      e.printStackTrace();
+      throw new CollectionException(e);
+    }
     mCurrLine = null;
   }
 
